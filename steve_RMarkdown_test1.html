@@ -1,0 +1,396 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>AEC Data Analysis</title>
+
+<base target="_blank"/>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+
+</head>
+
+<body>
+<h1>AEC Data Analysis</h1>
+
+<p>This is my first attempt at an R Markdown document. </p>
+
+<p>When you click the <strong>Knit HTML</strong> button a web page will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
+
+<h2>FUNC??</h2>
+
+<p>This code loads the relevant packages into R.</p>
+
+<pre><code class="r">## Enable required libraries
+library(Hmisc)
+</code></pre>
+
+<pre><code>## Loading required package: survival
+</code></pre>
+
+<pre><code>## Loading required package: splines
+</code></pre>
+
+<pre><code>## Hmisc library by Frank E Harrell Jr
+## 
+## Type library(help=&#39;Hmisc&#39;), ?Overview, or ?Hmisc.Overview&#39;) to see overall
+## documentation.
+## 
+## NOTE:Hmisc no longer redefines [.factor to drop unused levels when
+## subsetting.  To get the old behavior of Hmisc type dropUnusedLevels().
+</code></pre>
+
+<pre><code>## Attaching package: &#39;Hmisc&#39;
+</code></pre>
+
+<pre><code>## The following object(s) are masked from &#39;package:survival&#39;:
+## 
+## untangle.specials
+</code></pre>
+
+<pre><code>## The following object(s) are masked from &#39;package:base&#39;:
+## 
+## format.pval, round.POSIXt, trunc.POSIXt, units
+</code></pre>
+
+<pre><code class="r">library(foreign)
+library(XML)
+</code></pre>
+
+<h2>LOAD</h2>
+
+<p>This code reads in the first set of data.</p>
+
+<pre><code class="r">## READ IN DATA
+
+## FIRST PREFERENCE VOTES 2010 BY _Candidate_ CSV file Code from Simon
+## Jackman - source is comments section of:
+## http://jackman.stanford.edu/blog/?p=1760
+
+## Define the location of the data (AEC website)
+theURL &lt;- &quot;http://results.aec.gov.au/15508/Website/Downloads/HouseFirstPrefsByCandidateByVoteTypeDownload-15508.csv&quot;
+
+## Read in the data
+First_Preferences_By_Candidate_By_Vote_Type &lt;- read.csv(url(theURL), skip = 1, 
+    header = TRUE, quote = &quot;\&quot;&quot;, stringsAsFactors = FALSE)
+
+## READ IN DATA
+
+## FIRST PREFERENCE VOTES 2010 BY _Candidate_ CSV file Code from Simon
+## Jackman - source is comments section of:
+## http://jackman.stanford.edu/blog/?p=1760
+
+## Define the location of the data (AEC website)
+theURL &lt;- &quot;http://results.aec.gov.au/15508/Website/Downloads/HouseFirstPrefsByCandidateByVoteTypeDownload-15508.csv&quot;
+
+## Vote counts occuring by type
+vars &lt;- c(&quot;OrdinaryVotes&quot;, &quot;AbsentVotes&quot;, &quot;ProvisionalVotes&quot;, &quot;PrePollVotes&quot;, 
+    &quot;PostalVotes&quot;, &quot;TotalVotes&quot;)
+
+out &lt;- NULL
+for (v in vars) {
+    theVar &lt;- First_Preferences_By_Candidate_By_Vote_Type[, match(v, names(First_Preferences_By_Candidate_By_Vote_Type))]
+    out &lt;- cbind(out, tapply(theVar, First_Preferences_By_Candidate_By_Vote_Type$DivisionNm, 
+        sum, na.rm = TRUE))
+}
+
+outvars &lt;- c(&quot;OrdinaryVotes&quot;, &quot;AbsentVotes&quot;, &quot;ProvisionalVotes&quot;, &quot;PrePollVotes&quot;, 
+    &quot;PostalVotes&quot;, &quot;TotalVotes&quot;, &quot;DivisionName&quot;)
+
+z &lt;- apply(out, 2, function(x) sum(x != 0))
+names(z) &lt;- vars
+print(z)
+</code></pre>
+
+<pre><code>##    OrdinaryVotes      AbsentVotes ProvisionalVotes     PrePollVotes 
+##              150              150              150              150 
+##      PostalVotes       TotalVotes 
+##              150              150 
+</code></pre>
+
+<pre><code class="r">
+## Swing against ALP candidates THIS CODE TO GENERATE SWING DOESNT WORK??
+## swing &lt;- aggregate(First_Preferences_By_Candidate_By_Vote_Type,
+## list(Party = First_Preferences_By_Candidate_By_Vote_Type[&#39;PartyAb&#39; =
+## &#39;ALP&#39;]), mean) print(swing)
+
+# Convert out data matrix to a data frame
+outdf &lt;- as.data.frame(out)
+
+# Transform division from row.names to a variable
+# http://stackoverflow.com/questions/11427434/how-to-create-a-variable-of-rownames
+outdf$Division = rownames(outdf)
+rownames(outdf) = NULL
+
+# Assign column (variable) names
+colnames(outdf) &lt;- outvars
+
+# Describe the data
+describe(outdf)
+</code></pre>
+
+<pre><code>## outdf 
+## 
+##  7  Variables      150  Observations
+## ---------------------------------------------------------------------------
+## OrdinaryVotes 
+##       n missing  unique    Mean     .05     .10     .25     .50     .75 
+##     150       0     149   73852   61940   65536   69770   74234   78000 
+##     .90     .95 
+##   81693   83883 
+## 
+## lowest :  42257  47881  57272  57375  57801
+## highest:  88520  89736  94172 103628 105358 
+## ---------------------------------------------------------------------------
+## AbsentVotes 
+##       n missing  unique    Mean     .05     .10     .25     .50     .75 
+##     150       0     149    4821    2561    3042    4108    4878    5761 
+##     .90     .95 
+##    6488    7078 
+## 
+## lowest :  791  924 1547 1688 1708, highest: 7279 7523 7618 7902 8826 
+## ---------------------------------------------------------------------------
+## ProvisionalVotes 
+##       n missing  unique    Mean     .05     .10     .25     .50     .75 
+##     150       0     114   248.9   118.5   143.9   171.5   229.0   299.5 
+##     .90     .95 
+##   402.4   446.2 
+## 
+## lowest :  77  81  84  99 101, highest: 512 522 609 615 656 
+## ---------------------------------------------------------------------------
+## PrePollVotes 
+##       n missing  unique    Mean     .05     .10     .25     .50     .75 
+##     150       0     150    3240    1768    1967    2466    3053    3791 
+##     .90     .95 
+##    4808    5206 
+## 
+## lowest : 1393 1653 1663 1668 1677, highest: 5663 5711 6174 6682 6745 
+## ---------------------------------------------------------------------------
+## PostalVotes 
+##       n missing  unique    Mean     .05     .10     .25     .50     .75 
+##     150       0     150    5383    3276    3529    4284    5166    6386 
+##     .90     .95 
+##    7216    7874 
+## 
+## lowest :  1242  2049  2736  2849  2921
+## highest:  8267  8295  8471  9627 11118 
+## ---------------------------------------------------------------------------
+## TotalVotes 
+##       n missing  unique    Mean     .05     .10     .25     .50     .75 
+##     150       0     150   87544   75664   80588   84404   87798   91302 
+##     .90     .95 
+##   94484   97121 
+## 
+## lowest :  46409  53672  67294  67896  68216
+## highest: 105033 109950 110052 116712 117911 
+## ---------------------------------------------------------------------------
+## DivisionName 
+##       n missing  unique 
+##     150       0     150 
+## 
+## lowest : Adelaide  Aston     Ballarat  Banks     Barker   
+## highest: Wentworth Werriwa   Wide Bay  Wills     Wright    
+## ---------------------------------------------------------------------------
+</code></pre>
+
+<pre><code class="r">
+# Rename the data frame
+jackman_votetype_by_division &lt;- outdf
+remove(outdf)
+remove(out)
+</code></pre>
+
+<h2>DO</h2>
+
+<h3>Vote Distribution</h3>
+
+<p>Plot the vote distribution by division</p>
+
+<pre><code class="r">library(ggplot2)
+qplot(jackman_votetype_by_division$TotalVotes, main = &quot;Total Votes by Division, 2010 Federal Election&quot;, 
+    xlab = &quot;Total votes&quot;)
+</code></pre>
+
+<pre><code>## stat_bin: binwidth defaulted to range/30. Use &#39;binwidth = x&#39; to adjust
+## this.
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk plotTest"/> </p>
+
+<h2>END</h2>
+
+<p>End of my first file</p>
+
+</body>
+
+</html>
+

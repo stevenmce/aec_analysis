@@ -1,0 +1,110 @@
+AEC Data Analysis
+========================================================
+
+This is my first attempt at an R Markdown document. 
+
+When you click the **Knit HTML** button a web page will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+## FUNC??
+
+This code loads the relevant packages into R.
+
+```{r loadLibraries}
+## Enable required libraries
+library(Hmisc)
+library(foreign)
+library(XML)
+```
+
+## LOAD
+
+This code reads in the first set of data.
+
+```{r readData}
+## READ IN DATA
+
+## FIRST PREFERENCE VOTES 2010 BY _Candidate_ CSV file
+## Code from Simon Jackman - source is comments section of:
+## http://jackman.stanford.edu/blog/?p=1760 
+
+## Define the location of the data (AEC website)
+theURL <- "http://results.aec.gov.au/15508/Website/Downloads/HouseFirstPrefsByCandidateByVoteTypeDownload-15508.csv"
+
+## Read in the data
+First_Preferences_By_Candidate_By_Vote_Type <- read.csv(url(theURL),
+                     skip=1,
+                     header=TRUE,
+                     quote="\"",
+                     stringsAsFactors=FALSE)
+
+## READ IN DATA
+
+## FIRST PREFERENCE VOTES 2010 BY _Candidate_ CSV file
+## Code from Simon Jackman - source is comments section of:
+## http://jackman.stanford.edu/blog/?p=1760 
+
+## Define the location of the data (AEC website)
+theURL <- "http://results.aec.gov.au/15508/Website/Downloads/HouseFirstPrefsByCandidateByVoteTypeDownload-15508.csv"
+
+## Vote counts occuring by type
+vars <- c("OrdinaryVotes","AbsentVotes","ProvisionalVotes",
+          "PrePollVotes","PostalVotes","TotalVotes")
+
+out <- NULL
+for(v in vars){
+  theVar <- First_Preferences_By_Candidate_By_Vote_Type[,match(v,names(First_Preferences_By_Candidate_By_Vote_Type))]
+  out <- cbind(out,
+               tapply(theVar,First_Preferences_By_Candidate_By_Vote_Type$DivisionNm,sum,na.rm=TRUE))
+}
+
+outvars <-  c("OrdinaryVotes","AbsentVotes","ProvisionalVotes",
+              "PrePollVotes","PostalVotes","TotalVotes","DivisionName")
+
+z <- apply(out,2,function(x)sum(x!=0))
+names(z) <- vars
+print(z)
+
+## Swing against ALP candidates 
+## THIS CODE TO GENERATE SWING DOESNT WORK??
+#swing <- aggregate(First_Preferences_By_Candidate_By_Vote_Type, list(Party = First_Preferences_By_Candidate_By_Vote_Type["PartyAb" = "ALP"]), mean)
+#print(swing)
+
+# Convert out data matrix to a data frame
+outdf <- as.data.frame(out)
+
+# Transform division from row.names to a variable 
+# http://stackoverflow.com/questions/11427434/how-to-create-a-variable-of-rownames
+outdf$Division = rownames(outdf)
+rownames(outdf) = NULL
+
+# Assign column (variable) names
+colnames(outdf) <- outvars
+
+# Describe the data
+describe(outdf)
+
+# Rename the data frame
+jackman_votetype_by_division <- outdf
+remove(outdf)
+remove(out)
+
+```
+
+## DO
+
+### Vote Distribution
+
+Plot the vote distribution by division
+
+```{r plotTest}
+library(ggplot2)
+qplot(jackman_votetype_by_division$TotalVotes,
+      main="Total Votes by Division, 2010 Federal Election",
+      xlab="Total votes")
+
+```
+
+## END
+
+End of my first file
+
